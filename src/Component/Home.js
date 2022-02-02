@@ -3,6 +3,10 @@ import styled from "styled-components"
 import { AiOutlineDelete } from 'react-icons/ai'
 import {allUser, createData, deleteUser} from "../Component/Function/index"
 
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import moment from 'moment'
+
 function Home() {
 
   const [alldata , setAllData] = React.useState(null)
@@ -98,7 +102,9 @@ function Home() {
            </DDiv>
            <DDiv >
            <Label>Date Of Birth</Label>
-           <Input placeholder='Date Of Birth'
+           <Input placeholder="dd-mm-yyyy"
+           type="date"
+           min="1940-01-01" max="2000-12-31"
             required={true}
             value={usersD.date_of_birth}
             onChange={e => setUserD({...usersD, date_of_birth: e.target.value})}
@@ -127,7 +133,7 @@ function Home() {
             <Pre>{props.name_prefix}</Pre>
             <UserN>{props.username}</UserN>
             <Full>{props.first_name} &nbsp; {props.last_name}</Full>
-            <DateOf>{props.date_of_birth}</DateOf>
+            <DateOf> {moment(props.date_of_birth).format("DD/MM/YYYY")}</DateOf>
             <Ic onClick={()=>{
               deleteFun(props.username)
             }}></Ic>
@@ -145,6 +151,13 @@ function Home() {
 
 export default Home
 
+const DateCon = styled(DatePicker)`
+height: 50px;
+border:1px solid #BFBFBF ;
+outline: none;
+border-radius: 5px;
+`
+
 const Pre = styled.div`
 width: 50px;
 height: 50px;
@@ -157,7 +170,7 @@ align-items: center;
 font-weight: 500;
 `
 const UserN = styled.div`
-width: 200px;
+width: 100px;
 height: 40px;
 display: flex;
 padding-left: 30px;
@@ -165,7 +178,7 @@ align-items: center;
 font-weight: 500;
 `
 const Full = styled.div`
-width: 700px;
+width: 500px;
 height: 40px;
 display: flex;
 align-items: center;
@@ -217,12 +230,15 @@ width: 250px;
 height: 50px;
 background-color: #11468F;
 color: white;
-border-radius: 5px;
+border-radius: 6px;
 cursor: pointer;
+/* border: 1px solid #11468F; */
+border: none;
 `
 
 const DDiv = styled.div`
-height: 100px;
+height: 90px;
+
 width: 300px;
 display: flex;
 flex-direction: column;
